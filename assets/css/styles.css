@@ -1,0 +1,125 @@
+.border-radius-5 {
+  border-radius: 5px;
+}
+
+@media (min-width: 1200px) {
+  .wizard-container {
+    width: 500px;
+  }
+}
+
+@media (min-width: 992px) {
+  .wizard-container {
+    width: 500px;
+  }
+}
+
+@media (min-width: 768px) {
+  .wizard-container {
+    width: 500px;
+  }
+}
+
+@media (min-width: 576px) {
+  .wizard-container {
+    max-width: 500px;
+  }
+}
+
+.custom-progress {
+  height: 39px;
+}
+
+.feature-item {
+  height: 130px;
+  cursor: pointer;
+}
+
+.node-title {
+  border-radius: 5px;
+  background-color: var(--gray);
+}
+
+.finished-node-title {
+  border-radius: 5px;
+  background-color: var(--success);
+}
+
+.progress {
+  display: flex;
+  height: 1rem;
+  overflow: hidden;
+  line-height: 0;
+  font-size: .75rem;
+  background-color: #e9ecef;
+  border-radius: 0px;
+}
+
+.progress-bar-row {
+}
+
+.wizard-progress {
+  height: 30px;
+}
+
+@media (min-width: 0px) and (max-width: 764px) {
+  .main-container {
+    padding-top: 55px;
+    padding-left: 37px;
+    padding-right: 37px;
+  }
+}
+
+.progress-bar.progress-bar-striped.progress-bar-animated {
+  font-size: 18px;
+}
+
+.data-div {
+  position: fixed;
+  right: 0px;
+  top: 0px;
+  height: 100vh;
+  width: 400px;
+  border: solid 2px black;
+  background-color: black;
+  z-index: 2000;
+  overflow-y: scroll;
+}
+
+.selected-features {
+  background: linear-gradient(315deg, #3a3a3a, #005FA3);
+  color: white;
+}
+
+.feature-body {
+  bottom: 0px;
+}
+
+.feature-header {
+  top: 5px;
+}
+
+.main-container {
+  padding-top: 55px;
+}
+
+.terms-of-service {
+  height: 350px;
+  overflow-y: scroll;
+}
+
+@media (min-width: 0px) and (max-width: 428px) {
+  .nav-btn-spans {
+    display: none;
+  }
+}
+
+#app_body {
+  background: linear-gradient(#005FA3, white), #005FA3;
+  background-attachment: fixed;
+}
+
+[v-cloak] {
+  display: none;
+}
+

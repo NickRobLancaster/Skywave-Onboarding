@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>SkywaveOnboarding</title>
+    <link rel="icon" type="image/png" sizes="100x100" href="assets/img/sw-favicon.png">
+    <link rel="icon" type="image/png" sizes="100x100" href="assets/img/sw-favicon.png">
+    <link rel="icon" type="image/png" sizes="100x100" href="assets/img/sw-favicon.png">
+    <link rel="icon" type="image/png" sizes="100x100" href="assets/img/sw-favicon.png">
+    <link rel="icon" type="image/png" sizes="100x100" href="assets/img/sw-favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.6.0/cosmo/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;700&amp;display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+
+<body id="app_body" class="vh-100">
+    <nav class="navbar navbar-light navbar-expand-md fixed-top shadow-lg border-bottom border-dark bg-white">
+        <div class="container-fluid"><img class="img-fluid" src="assets/img/skywaveLogo.png" width="150"><a class="navbar-brand" href="#"></a>
+            <ul class="navbar-nav">
+                <li class="nav-item pr-1 pl-1"><a class="btn btn-outline-danger btn-block d-inline mr-2" role="button" href="tel:18663350110"><i class="fa fa-phone"></i><span class="nav-btn-spans">&nbsp;Call</span></a><a class="btn btn-outline-info btn-block d-inline mr-2" role="button" href="mailto:info@skywave.app"><i class="fa fa-envelope"></i><span class="nav-btn-spans">&nbsp;Email</span></a><a class="btn btn-outline-success btn-block d-inline" role="button" id="chat-button" onclick="_chatlio.showOrHide();"><i class="fa fa-comments-o"></i>&nbsp;Chat</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container-fluid d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-sm-center justify-content-md-center justify-content-lg-center justify-content-xl-center main-container h-100">
+        <form class="wizard-container pb-3">
+            <h1 class="mt-5 text-white" style="text-align: center;text-shadow: 2px 2px 6px rgb(71,71,71);"><strong>Skywave Onboarding</strong></h1>
+            <div class="form-row d-xl-flex wizard-body bg-white p-3 border-radius-5 mb-5 mt-5 shadow-lg">
+                <div class="col-12 contact-information" v-if="active_node == 'contact'">
+                    <div class="form-row">
+                        <div class="col-12 text-center mb-3">
+                            <h5 class="p-2 node-title text-white">Contact Information</h5>
+                        </div>
+                        <div class="col-md-6"><i class="fa fa-exclamation-circle mr-2 text-danger" v-if="first_name_alert == true"></i><label>First Name</label><span class="ml-1 text-danger" v-if="first_name_alert == true"><em>Enter </em><strong><em>First Name</em></strong></span><input class="form-control" type="text" v-model="form.first_name"></div>
+                        <div class="col-md-6"><i class="fa fa-exclamation-circle mr-2 text-danger" v-if="last_name_alert == true"></i><label>Last Name</label><span class="ml-1 text-danger" v-if="last_name_alert == true"><em>Enter </em><strong><em>Last Name</em></strong></span><input class="form-control" type="text" v-model="form.last_name"></div>
+                        <div class="col-md-12"><i class="fa fa-exclamation-circle mr-2 text-danger" v-if="company_name_alert == true"></i><label>Company Name</label><span class="ml-1 text-danger" v-if="company_name_alert == true"><em>Enter </em><strong><em>Company Name</em></strong></span><input class="form-control" type="text" v-model="form.company_name"></div>
+                        <div class="col-md-12"><i class="fa fa-exclamation-circle mr-2 text-danger" v-if="company_email_alert == true"></i><label>Company Email</label><span class="ml-1 text-danger" v-if="company_email_alert == true"><em>Must contain </em><strong><em>@</em></strong><em> and </em><strong><em>Period</em></strong></span><input class="form-control" type="text" v-model="form.company_email"></div>
+                        <div class="col-md-12"><i class="fa fa-exclamation-circle mr-2 text-danger" v-if="company_phone_alert == true"></i><label>Company Phone</label><span class="ml-1 text-danger" v-if="company_phone_alert == true"><em>Enter </em><strong><em>Company Phone</em></strong></span><input class="form-control" type="text" v-model="form.company_phone"></div>
+                        <div class="col-md-8"><i class="fa fa-exclamation-circle mr-2 text-danger" v-if="company_street_address_alert == true"></i><label>Company Street Address</label><span class="ml-1 text-danger" v-if="company_street_address_alert == true"><em>Enter </em><strong><em>Company&nbsp;Street Address</em></strong></span><input class="form-control" type="text" v-model="form.company_street_address"></div>
+                        <div class="col-md-4"><label>Suite / Unit</label><input class="form-control" type="text" v-model="form.company_suite_unit"></div>
+                        <div class="col-md-4"><i class="fa fa-exclamation-circle mr-2 text-danger" v-if="company_city_alert == true"></i><label>City</label><span class="ml-1 text-danger" v-if="company_city_alert == true"><em>Enter </em><strong><em>City</em></strong></span><input class="form-control" type="text" v-model="form.company_city"></div>
+                        <div class="col-md-4"><i class="fa fa-exclamation-circle mr-2 text-danger" v-if="company_state_alert == true"></i><label>State</label><span class="ml-1 text-danger" v-if="company_state_alert == true"><em>Enter </em><strong><em>State</em></strong></span><input class="form-control" type="text" v-model="form.company_state"></div>
+                        <div class="col-md-4"><i class="fa fa-exclamation-circle mr-2 text-danger" v-if="company_zip_alert == true"></i><label>Zip</label><span class="ml-1 text-danger" v-if="company_zip_alert == true"><em>Enter </em><strong><em>Zip</em></strong></span><input class="form-control" type="text" v-model="form.company_zip"></div>
+                        <div class="col-md-12"><i class="fa fa-exclamation-circle mr-2 text-danger" v-if="industry_alert == true"></i><label>Industry</label><span class="ml-1 text-danger" v-if="industry_alert == true"><em>Select </em><strong><em>Companies Industry</em></strong></span><select class="form-control" v-model="form.industry">
+                                <option value="Credit Repair" selected="">Credit Repair</option>
+                                <option value="Tax Resolution">Tax Resolution</option>
+                                <option value="Student Consolidation">Student Consolidation</option>
+                                <option value="Morgage">Mortgage</option>
+                                <option value="Debt Settlement">Debt Settlement</option>
+                                <option value="Debt Validation">Debt Validation</option>
+                                <option value="Other">Other</option>
+                            </select></div>
+                        <div class="col-md-12" v-if="form.industry == 'Other'"><i class="fa fa-exclamation-circle mr-2 text-danger" v-if="other_industry_alert == true"></i><label>List Other Industry</label><span class="ml-1 text-danger" v-if="other_industry_alert == true"><em>Enter </em><strong><em>Other Industry</em></strong></span><input class="form-control" type="text" v-model="form.other_industry"></div>
+                    </div>
+                </div>
+                <div class="col-12 sms" v-if="active_node == 'sms'">
+                    <div class="form-row">
+                        <div class="col-12 text-center">
+                            <h5 class="p-2 node-title text-white">SMS / MMS Communication</h5>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <div class="form-row">
+                                <div class="col-12">
+                                    <div class="form-check"><input class="form-check-input" type="radio" id="skywave_sms" v-model="form.sms" value="I plan to use Skywave SMS"><label class="form-check-label" for="skywave_sms">I plan to use Skywave SMS</label></div>
+                                </div>
+                                <div class="col-12">
+                                    <ul>
+                                        <li><strong>Per SMS Segment:</strong>&nbsp;0.02¢</li>
+                                        <li><strong>Per MMS Segment: </strong>0.04¢</li>
+                                        <li><strong>SMS Phone Number From Skywave:</strong> $2 / Month <strong>(Required)</strong></li>
+                                    </ul>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-check"><input class="form-check-input" type="radio" id="own_sms" v-model="form.sms" value="I want to use my own SMS Integration"><label class="form-check-label" for="own_sms">I want to use my own SMS Integration</label></div>
+                                </div>
+                                <div class="col-12">
+                                    <ul>
+                                        <li><strong>Per Sent Segment:</strong>&nbsp;0.005¢</li>
+                                    </ul>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-check"><input class="form-check-input" type="radio" id="no_sms_at_all" v-model="form.sms" value="I don't plan to use SMS at all"><label class="form-check-label" for="no_sms_at_all">I don't plan to use SMS at all</label></div>
+                                </div>
+                                <div class="col-12 text-center p-3">
+                                    <div class="form-check"><input class="form-check-input" type="radio" id="skip_sms" v-model="form.sms" value="Skip SMS for now"><label class="form-check-label text-danger" for="skip_sms"><strong>Skip SMS</strong>&nbsp;<strong>for now</strong></label></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 fax" v-if="active_node == 'fax'">
+                    <div class="form-row">
+                        <div class="col-12 text-center">
+                            <h5 class="p-2 node-title text-white">Faxing</h5>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <div class="form-row">
+                                <div class="col-12 mb-2">
+                                    <div class="form-check"><input class="form-check-input" type="radio" id="skywave_faxing" value="I plan to use Skywave CRM for Faxing" v-model="form.fax"><label class="form-check-label" for="skywave_faxing">I plan to use Skywave CRM for Faxing</label></div>
+                                </div>
+                                <div class="col-12">
+                                    <p>Inbound and Outbound Faxes are accessed in the messages center.</p>
+                                </div>
+                                <div class="col-12">
+                                    <ul>
+                                        <li><strong>Fax Number: </strong>$2 / Month</li>
+                                        <li><strong>Per Page: </strong>0.05¢</li>
+                                    </ul>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-check"><input class="form-check-input" type="radio" id="no_fax" value="I do not plan to use Skywave CRM for Faxing" v-model="form.fax"><label class="form-check-label" for="no_fax">I do not plan to use Skywave CRM for Faxing</label></div>
+                                </div>
+                                <div class="col-12 text-center p-3">
+                                    <div class="form-check"><input class="form-check-input" type="radio" id="skip_fax" value="Skip Faxing for now" v-model="form.fax"><label class="form-check-label text-danger" for="skip_fax"><strong>Skip Faxing</strong>&nbsp;<strong>for now</strong></label></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 phone" v-if="active_node == 'phone'">
+                    <div class="form-row">
+                        <div class="col-12 text-center">
+                            <h5 class="p-2 node-title text-white">Phone System</h5>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <div class="form-row">
+                                <div class="col-12">
+                                    <div class="form-check"><input class="form-check-input" type="radio" id="skywave_phone" value="I plan to to use Skywave Voice as my Phone System" v-model="form.phone"><label class="form-check-label" for="skywave_phone">I plan to to use Skywave Voice as my Phone System</label></div>
+                                </div>
+                                <div class="col-12">
+                                    <ul>
+                                        <li><strong>Per User: </strong>$10 / Month (Minimum 1 Required)</li>
+                                        <li><strong>Per Call Queue: </strong>$5 / Month (Optional)</li>
+                                        <li><strong>Per Conference Room: </strong>$5 / Month (Optional)</li>
+                                        <li><strong>Local / Toll Free Numbers: </strong>$2 / Month (Minimum 1 Required)</li>
+                                        <li><strong>Per Local Minute: </strong>0.0075¢</li>
+                                        <li><strong>Per Toll Free Minute: </strong>0.015¢</li>
+                                        <li><strong>Porting Numbers In: </strong>Free</li>
+                                    </ul>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-check"><input class="form-check-input" type="radio" id="own_carrier" value="I plan to bring my own phone system" v-model="form.phone"><label class="form-check-label" for="own_carrier">I plan to bring my own phone system</label></div>
+                                </div>
+                                <div class="col-12"></div>
+                                <div class="col-12">
+                                    <div class="form-check"><input class="form-check-input" type="radio" id="no_phone_integration" value="I do not plan to have a phone system integrated with Skywave CRM" v-model="form.phone"><label class="form-check-label" for="no_phone_integration">I do not plan to have a phone system integrated with Skywave CRM</label></div>
+                                </div>
+                                <div class="col-12 text-center p-3">
+                                    <div class="form-check"><input class="form-check-input" type="radio" id="skip_phone" value="Skip Phone System for now" v-model="form.phone"><label class="form-check-label text-danger" for="skip_phone"><strong>Skip Phone System</strong>&nbsp;<strong>for now</strong></label></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 email" v-if="active_node == 'email'">
+                    <div class="form-row">
+                        <div class="col-12 text-center">
+                            <h5 class="p-2 node-title text-white">Email</h5>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <div class="form-row">
+                                <div class="col-12">
+                                    <h5><strong>Outbound Emails</strong></h5>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-check"><input class="form-check-input" type="radio" id="skywave_outbound_email" value="I plan to use Skywave Outbound Email" v-model="form.outbound_email"><label class="form-check-label" for="skywave_outbound_email">I plan to use Skywave Outbound Email<br></label></div>
+                                </div>
+                                <div class="col-12">
+                                    <ul>
+                                        <li><strong>Free:</strong>&nbsp;1,200 / Day</li>
+                                    </ul>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-check"><input class="form-check-input" type="radio" id="own_outbound_email" value="I want to use my own Outbound Email Integration" v-model="form.outbound_email"><label class="form-check-label" for="own_outbound_email">I want to use my own Outbound Email Integration<br></label></div>
+                                </div>
+                                <div class="col-12">
+                                    <ul>
+                                        <li><strong>Per Sent Integrated Email: </strong>0.0005¢</li>
+                                    </ul>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-check"><input class="form-check-input" type="radio" id="no_outbound_email" value="I dont plan to use Outbound Email at all" v-model="form.outbound_email"><label class="form-check-label" for="no_outbound_email">I don't plan to use Outbound Email at all<br></label></div>
+                                </div>
+                                <div class="col-12 text-center p-3">
+                                    <div class="form-check"><input class="form-check-input" type="radio" id="skip_outbound_email" value="Skip Outbound Email for now" v-model="form.outbound_email"><label class="form-check-label text-danger" for="skip_outbound_email"><strong>Skip Outbound Email for now</strong><br></label></div>
+                                </div>
+                                <div class="col-12 text-center p-3">
+                                    <hr>
+                                </div>
+                                <div class="col-12">
+                                    <h5><strong>Inbound Emails</strong></h5>
+                                </div>
+                                <div class="col-12">
+                                    <p>Our system works like a ticket based system where every email inbound goes directly to their file, you can use our default domain, or you can customize your own domain.</p>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-check"><input class="form-check-input" type="radio" id="skywave_email_inbound" value="I plan to use Skywave Default Inbound Domain" v-model="form.inbound_email"><label class="form-check-label" for="skywave_email_inbound">I plan to use Skywave Default Inbound Domain<br></label></div>
+                                </div>
+                                <div class="col-12">
+                                    <ul>
+                                        <li>Emails are shelved and organized into files.</li>
+                                        <li>Attachments are uploaded to Documents.</li>
+                                        <li class="text-break"><strong>Example:</strong>&nbsp;account+12345@serviceportal.app</li>
+                                    </ul>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-check"><input class="form-check-input" type="radio" id="own_email_inbound" value="I want to use my own Inbound Domain" v-model="form.inbound_email"><label class="form-check-label" for="own_email_inbound">I want to use my own Inbound Domain<br></label></div>
+                                </div>
+                                <div class="col-12">
+                                    <ul>
+                                        <li>Same as features above</li>
+                                    </ul>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-check"><input class="form-check-input" type="radio" id="no_inbound_email" value="I dont plan to use Inbound Email at all" v-model="form.inbound_email"><label class="form-check-label" for="no_inbound_email">I don't plan to use Inbound Email at all<br></label></div>
+                                </div>
+                                <div class="col-12 text-center p-3">
+                                    <div class="form-check"><input class="form-check-input" type="radio" id="skip_inbound_email" value="Skip Inbound Email for now" v-model="form.inbound_email"><label class="form-check-label text-danger" for="skip_inbound_email"><strong>Skip Inbound Email for now</strong><br></label></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 migration" v-if="active_node == 'migration'">
+                    <div class="form-row">
+                        <div class="col-12 text-center">
+                            <h5 class="p-2 node-title text-white">Migration</h5>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <div class="form-row">
+                                <div class="col-12">
+                                    <p>Detailed data migration which includes migrating notes, documents, file assignments, etc. </p>
+                                </div>
+                                <div class="col-12 mb-2">
+                                    <div class="form-check"><input class="form-check-input" type="radio" id="is_migrating" value="I plan to Migrate files from another CRM or software" v-model="form.migrating"><label class="form-check-label" for="is_migrating">I plan to Migrate files from another CRM or software<br></label></div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-check"><input class="form-check-input" type="radio" id="start_fresh" value="I want to start fresh in Skywave CRM" v-model="form.migrating"><label class="form-check-label" for="start_fresh">I want to start fresh in Skywave CRM<br></label></div>
+                                </div>
+                                <div class="col-12">
+                                    <ul>
+                                        <li><strong>One Time: </strong>$1000</li>
+                                    </ul>
+                                </div>
+                                <div class="col-12 text-center p-3">
+                                    <div class="form-check"><input class="form-check-input" type="radio" id="skip_migration" value="Skip Migration for now" v-model="form.migrating"><label class="form-check-label text-danger" for="skip_migration"><strong>Skip Migration</strong>&nbsp;<strong>for now</strong><br></label></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 users" v-if="active_node == 'users'">
+                    <div class="form-row">
+                        <div class="col-12 text-center">
+                            <h5 class="p-2 node-title text-white">Users</h5>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <div class="form-row">
+                                <div class="col-12">
+                                    <div class="form-row text-center">
+                                        <div class="col-12"><label class="col-form-label">Please enter the number of people that will be using the software</label></div>
+                                        <div class="col-4 offset-4"><input class="form-control text-center" type="text" v-model="form.number_of_users"></div>
+                                        <div class="col-4 text-left"><span><strong>$75 / User / Month</strong></span></div>
+                                        <div class="col-12">
+                                            <p><strong>Minimum 1 User Required</strong></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 payments" v-if="active_node == 'payments'">
+                    <div class="form-row">
+                        <div class="col-12 text-center">
+                            <h5 class="p-2 node-title text-white">Payment Processing</h5>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <div class="form-row">
+                                <div class="col-12 mb-2">
+                                    <div class="form-check"><input class="form-check-input" type="radio" id="skywave_payments" value="I plan to use Skywave CRM to process payments through my existing merchant's gateway" v-model="form.payments"><label class="form-check-label" for="skywave_payments">I plan to use Skywave CRM to process payments through my existing merchant's gateway<br></label></div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-check"><input class="form-check-input" type="radio" id="has_no_merchant" value="I do not currently have a merchant account" v-model="form.payments"><label class="form-check-label" for="has_no_merchant">I do not currently have a merchant account<br></label></div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-check"><input class="form-check-input" type="radio" id="another_payment_method" value="I plan to process my payments outside of Skywave CRM" v-model="form.payments"><label class="form-check-label" for="another_payment_method">I plan to process my payments outside of Skywave CRM<br></label></div>
+                                </div>
+                                <div class="col-12 text-center p-3">
+                                    <div class="form-check"><input class="form-check-input" type="radio" id="skip_payments" value="Skip Payment Processing for now" v-model="form.payments"><label class="form-check-label text-danger" for="skip_payments"><strong>Skip Payment Processing</strong>&nbsp;<strong>for now</strong><br></label></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 esign" v-if="active_node == 'esign'">
+                    <div class="form-row">
+                        <div class="col-12 text-center">
+                            <h5 class="p-2 node-title text-white">E-Signature Service</h5>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <div class="form-row">
+                                <div class="col-12 mb-2">
+                                    <div class="form-check"><input class="form-check-input" type="radio" id="skywave_sign" value="I plan to use Skywave Sign" v-model="form.esign"><label class="form-check-label" for="skywave_sign">I plan to use Skywave Sign<br></label></div>
+                                </div>
+                                <div class="col-12">
+                                    <p>Skywave Sign handles all your E-Signature service needs. Skywave Sign is mobile friendly, has built in IP address tracking and will automatically generate a confirmation page with every completed signature.</p>
+                                </div>
+                                <div class="col-12">
+                                    <ul>
+                                        <li><strong>Per Sent E-Sign: 0.60</strong>¢</li>
+                                    </ul>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-check"><input class="form-check-input" type="radio" id="no_esign" value="I don't plan to use E-Signatures at all" v-model="form.esign"><label class="form-check-label" for="no_esign">I don't plan to use E-Signatures at all<br></label></div>
+                                </div>
+                                <div class="col-12 text-center p-3">
+                                    <div class="form-check"><input class="form-check-input" type="radio" id="skip_esign" value="Skip E-Signature for now" v-model="form.esign"><label class="form-check-label text-danger" for="skip_esign"><strong>Skip E-Signature</strong>&nbsp;<strong>for now</strong><br></label></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 authorized" v-if="active_node == 'authorized'">
+                    <div class="form-row">
+                        <div class="col-12 text-center">
+                            <h5 class="p-2 node-title text-white">Authorized Contacts</h5>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <div class="form-row">
+                                <div class="col-12"><label class="col-form-label"><strong>Contact 1 (Optional)</strong></label></div>
+                                <div class="col-md-4"><label>Full Name</label><input class="form-control" type="text" v-model="form.contact_1_name"></div>
+                                <div class="col-md-4"><label>Email</label><input class="form-control" type="text" v-model="form.contact_1_email"></div>
+                                <div class="col-md-4"><label>Phone</label><input class="form-control" type="text" v-model="form.contact_1_phone"></div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-12"><label class="col-form-label"><strong>Contact 2 (Optional)</strong></label></div>
+                                <div class="col-md-4"><label>Full Name</label><input class="form-control" type="text" v-model="form.contact_2_name"></div>
+                                <div class="col-md-4"><label>Email</label><input class="form-control" type="text" v-model="form.contact_2_email"></div>
+                                <div class="col-md-4"><label>Phone</label><input class="form-control" type="text" v-model="form.contact_2_phone"></div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-12"><label class="col-form-label"><strong>Contact 3 (Optional)</strong></label></div>
+                                <div class="col-md-4"><label>Full Name</label><input class="form-control" type="text" v-model="form.contact_3_name"></div>
+                                <div class="col-md-4"><label>Email</label><input class="form-control" type="text" v-model="form.contact_3_email"></div>
+                                <div class="col-md-4"><label>Phone</label><input class="form-control" type="text" v-model="form.contact_3_phone"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 support" v-if="active_node == 'support'">
+                    <div class="form-row">
+                        <div class="col-12 text-center">
+                            <h5 class="p-2 node-title text-white">Support Plan</h5>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <div class="form-row">
+                                <div class="col-12">
+                                    <div class="form-check"><input class="form-check-input" type="radio" id="5_hour_response" value="5 Hour Response Time: Free" v-model="form.support"><label class="form-check-label" for="5_hour_response"><strong>5 Hour Response Time:&nbsp;</strong>Free<br></label></div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-check"><input class="form-check-input" type="radio" id="2_hour_response" value="2 Hour Response Time: $175 / Month" v-model="form.support"><label class="form-check-label" for="2_hour_response"><strong>2 Hour Response Time:</strong>&nbsp;$175 / Month<br></label></div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-check"><input class="form-check-input" type="radio" id="30_min_response" value="30 Minute Response Time: $350 / Month" v-model="form.support"><label class="form-check-label" for="30_min_response"><strong>30 Minute Response Time:&nbsp;</strong>$350 / Month<br></label></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 dedicated" v-if="active_node == 'dedicated'">
+                    <div class="form-row">
+                        <div class="col-12 text-center">
+                            <h5 class="p-2 node-title text-white">Getting Started</h5>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <div class="form-row">
+                                <div class="col-12">
+                                    <div class="form-check"><input class="form-check-input" type="radio" id="wants_account_manager" value="I would like an Account Manager to help me set up and maintain my account" v-model="form.dedicated_account_rep"><label class="form-check-label" for="wants_account_manager">I would like someone to contact me for a walk-through of Skywave CRM<br></label></div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-check"><input class="form-check-input" type="radio" id="no_account_rep" value="I am not interested in having an Account Manager" v-model="form.dedicated_account_rep"><label class="form-check-label" for="no_account_rep">No, I would like to explore Skywave CRM on my own with no assistance<br></label></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 billing" v-if="active_node == 'billing'">
+                    <div class="form-row">
+                        <div class="col-12 text-center">
+                            <h5 class="p-2 node-title text-white">Billing Details</h5>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <div class="form-row">
+                                <div class="col-md-12"><label>Bank Name</label><input class="form-control" type="text" v-model="form.bank_name"></div>
+                                <div class="col-md-6"><label>Routing Number</label><input class="form-control" type="text" v-model="form.routing_number"></div>
+                                <div class="col-md-6"><label>Account Number</label><input class="form-control" type="text" v-model="form.account_number"></div>
+                                <div class="col text-center p-3">
+                                    <div><a class="btn btn-link btn-lg" role="button" data-toggle="modal" href="#myModal"><span style="text-decoration: underline;">Terms of Billing</span></a>
+                                        <div class="modal fade" role="dialog" tabindex="-1" id="myModal">
+                                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4>Terms of Billing</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="form-row">
+                                                            <div class="col-md-12 mt-3">
+                                                                <p class="text-justify">As a duly authorized check signer on the financial institution account identified below, I authorize Skywave to perform scheduled or periodic electronic funds transfer debits and/or credits from my account identified below for payments due for monthly Skywave Software invoices or when applicable, apply electronic funds transfer credits to the same. This applies to check by phone payments as well as any other electronic payment. I understand the dollar amount can vary depending on services performed. All statements may include the parent company’s name of<br>“<strong>Aperture Code Inc</strong>”. <br><br>Furthermore, if any such electronic debit(s) should be returned by my financial institution as Non•Sufficient Funds ( NSF ), I authorize, Skywave, to collect a returned item fee of $25.00 per item by electronic debit from my account identified below. <br>For accounting purposes, all electronic debits will be reflected in the monthly bank statement that corresponds with the financial institution account identified below.&nbsp;<br></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer"><button class="btn btn-danger" data-dismiss="modal" type="button">Close</button></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 wrap" v-if="active_node == 'wrap'">
+                    <div class="form-row">
+                        <div class="col-12 text-center">
+                            <h5 class="p-2 node-title text-white">Terms of Service</h5>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <div class="form-row">
+                                <div class="col-12 terms-of-service">
+                                    <div class="form-row">
+                                        <div class="col-12">
+                                            <p>THIS AGREEMENT (“Agreement”) is between Aperture Code Inc., d/b/a Skywave and(“Subscriber”).<br>SUBSCRIPTION TO THIS WEB SOFTWARE IS SUBJECT TO THE TERMS SET FORTH BELOW, INCLUDING BUT NOT LIMITED TO FEES, TERM OF AGREEMENT, SOFTWARE LICENSE TERMS, TERMS OF USE, CUSTOMER REPRESENTATIONS AND WARRANTY STATEMENT.<br> <br>1.&nbsp;DEFINITIONS<br> <br>a.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"Software" means software made available by Skywave, including any Upgrades or other updates, corrections, and enhancements thereto, and any accompanying instructions, documentation, technical data, images, and other related materials.<br> <br>b.&nbsp;"Use" means storing, loading,&nbsp;installing, executing,&nbsp;or displaying the&nbsp;Software and use of&nbsp;the Software by way of&nbsp;Skywave’s server.<br> <br>c.&nbsp; "License" means the Software license grant and general license terms set forth herein.<br> <br>d.&nbsp;"Term of Agreement" means the period from the date a subscription is purchased to the date of termination by either the user or Skywave.<br> <br>e.&nbsp;"Subscriber" (sometimes referred to as "you") means the individual or entity who purchases the subscription under this Agreement.<br> <br>f.&nbsp;"User" means Subscriber and any entity or individual who uses the Software through Subscriber's subscription.<br> <br>g.&nbsp;"Agreement" means this entire Software Subscription and License Agreement.<br> <br>h.&nbsp;"Upgrade" means a new release of the Product that includes a substantial new features or capability.<br> <br>2.&nbsp;SUBSCRIPTION TERMS<br> <br>a.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;As part of this subscription, and subject to the terms of this Agreement, Subscriber receives a License during the Term ofAgreement. Skywave will provide updates to the Software, such as correction of "bugs"and improvements to existing functionality as they become developed and are implemented by Skywave in its production environment. This subscription automatically includes the right to receive any Upgrades made available by Skywave to its user base.<br> <br>b.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The subscription entitles User to receive limited support as posted at www.skywave.com/support at the time this Agreement becomes effective.<br> <br>c.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Except as otherwise set forth in this Agreement (including in Sections 3.d and 7.a below), Skywave may terminate the subscription and Software License only with notice to Subscriber citing the reasons for this failure to comply with any terms of thisAgreement. Immediately upon termination, Subscriber and its Users will no longer have any right to Use the Software.<br> <br>d.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Subscriber may not assign or transfer this Agreement or any of its rights or obligations hereunder without the prior written consent of Skywave. Any such attempted assignment or transfer will be null and void. Skywave may terminate this Agreement in the event of any such attempted assignment or transfer. Skywave may delegate any of its obligations hereunder to a subcontractor or other agent.<br> <br>e.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By accepting this Agreement and purchasing this Subscription, Subscriber represents and warrants that, if a natural person, Subscriber is at least 18 years of age and/or is otherwise legally able to enter into a binding contract.<br> <br>f.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cancellation may be effected by following the procedures posted on our Web Site (www.skywave.com) at the timeSubscriber wishes to cancel.<br> <br>3.&nbsp;LICENSE GRANT AND TERMS<br> <br>a.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;During the Term&nbsp;of Agreement, subject to continuing payment of monthly fees as set forth herein and to compliance with this Agreement, Subscriber will have a License that entitles at least a single User to login and Use the Software. Subscriber will be liable for all of its Users’ compliance with this Agreement, and for any violations by any of its Users of any of the terms hereof.<br> <br>b.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The Software License confers no title or ownership and is not a sale of any rights in the Software.Subscriber is granted only the right to Use the Software without right of sublicense.<br><br> <br> <br> <br>c.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Subscriber must retain all patent, copyright notices and other proprietary legends in or on the original Software. Subscriber may not remove from the Software, or alter, any of the Skywave trademarks, trade names, logos, patent or copyright notices or markings, or add any other notices or markings to the Software.<br> <br>d.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Subscriber may not modify, reverse engineer, disassemble, decompile or otherwise attempt to access or determine the source code of the Software, copy, reproduce or distribute the Software in any way in whole or in part or create any derivative work based on the Software. Any use of these materials on any other website or networked computer environment for any purpose is prohibited. The Software is copyrighted and any unauthorized use of it is prohibited. If User breaches any of these terms, the License toUse the Software automatically terminates and User must immediately destroy any downloaded or printed materials. Without limiting the foregoing, you may not duplicate, copy, or reuse any portion of the HTML/CSS or visual design elements of the Software without express written permission from Skywave.<br> <br>e.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Subscriber may not export or re•export this Software or any copy or adaptation in violation of any applicable laws or regulations. You may not upload, post, host, or transmit unsolicited email, SMS, or “spam” messages through or using the Software. You may not transmit any worms or viruses or any code of a destructive nature through or using the Software.<br> <br>f.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;As between the parties hereto, Skywave owns all right, title and interest in and to the Software, including all intellectual property and other proprietary rights therein. Subscriber acknowledges and agrees that the Software contains proprietary information including trade secrets, know how and confidential information that is the exclusive property of Skywave. During the period thisAgreement is in effect and at all times after its termination, Subscriber and its employees and agents shall maintain the confidentiality of this information and not sell, license, publish, display, distribute, disclose or otherwise make available this information to any third party nor use such proprietary information concerning the Software, including any flow charts, user manuals and screens, to persons not an employee of Subscriber without the prior written consent of Skywave.<br> <br>4.&nbsp;DISCLAIMERS AND LIMITATIONS<br> <br>a.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO THE EXTENT ALLOWED BY LAW, THIS SOFTWARE AND THE ACCESS TO OUR SERVER ARE PROVIDED TO YOU "AS IS" WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, WHETHER ORAL OR WRITTEN, EXPRESS OR IMPLIED.WITHOUT LIMITING THE FOREGOING, Skywave DOES NOT WARRANT THAT: (I) THE SOFTWARE WILL MEET YOUR SPECIFIC REQUIREMENTS,<br>(II) THE SOFTWARE WILL BE UNINTERRUPTED, TIMELY, SECURE, OR ERROR•FREE, (III) THE RESULTS THAT MAY BE OBTAINED FROM THE USE OF THE SOFTWARE WILL BE ACCURATE OR RELIABLE, (IV) THE QUALITY OF ANY PRODUCTS, SERVICES, INFORMATION, OR OTHER MATERIAL PURCHASED OR OBTAINED BY YOU THROUGH THE SOFTWARE WILL MEET YOUR EXPECTATIONS, OR (V) ANY ERRORS IN THE SOFTWARE WILL BE CORRECTED. SKYWAVE SPECIFICALLY DISCLAIMS ANY IMPLIED WARRANTIES OR CONDITIONS OF MERCHANTABILITY, SATISFACTORY QUALITY, NON•INFRINGEMENT, TITLE,ACCURACY OF INFORMATIONAL CONTENT, AND FITNESS FOR A PARTICULAR PURPOSE, THE ENTIRE RISK AS TO THE RESULTS AND PERFORMANCE OF THE SOFTWARE IS ASSUMED BY YOU. NO ORAL OR WRITTEN INFORMATION OR ADVICE GIVEN BY SKYWAVE OR SKYWAVE’S AUTHORIZED REPRESENTATIVES SHALL CREATE A WARRANTY. SKYWAVE DOES NOT REPRESENT THAT THE SOFTWARE OR ITS SERVER WILL BE AVAILABLE AT ALL TIMES OR WILL BE FUNCTIONING PROPERLY. THE SOFTWARE OR OUR SERVER MAY BE UNAVAILABLE AT TIMES FOR MAINTENANCE OR FOR A VARIETY OF OTHER REASONS. WE ARE NOT LIABLE TO YOU FOR ANY PERIODS OF UNAVAILABILITY AND YOU WILL NOT BE ENTITLED TO ANY REFUNDS FOR THOSE PERIODS WHEN THE SOFTWARE OR OUR SERVER IS NOT AVAILABLE OR IS NOT FUNCTIONING PROPERLY. SOME JURISDICTIONS DO NOT ALLOW EXCLUSIONS OF IMPLIED WARRANTIES OR CONDITIONS, SO THE ABOVE EXCLUSION MAY NOT APPLY TO YOU TO THE EXTENT PROHIBITED BY APPLICABLE LAWS.<br> <br>b.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXCEPT TO THE EXTENT PROHIBITED BY LAW, IN NO EVENT WILL SKYWAVE OR ITS SUBSIDIARIES, AFFILIATES, DIRECTORS, OFFICERS, EMPLOYEES, AGENTS, CONTRACTORS OR SUPPLIERS BE LIABLE FOR ANY INDIRECT, SPECIAL, INCIDENTAL, CONSEQUENTIAL, PUNITIVE, OR OTHER DAMAGES (INCLUDING LOST PROFIT, LOST DATA, OR DOWNTIME COSTS), ARISING OUT OF THE USE, INABILITY TO USE, OR THE RESULTS OF USE OF THE SOFTWARE, WHETHER BASED IN WARRANTY, CONTRACT, TORT OR OTHER LEGAL THEORY, AND WHETHER OR NOT SKYWAVE WAS ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. WITHOUT LIMITING THE FOREGOING, SUBSCRIBER AGREES THAT SKYWAVE’S AND ITS SUPPLIERS’ TOTAL CUMULATIVE LIABILITY TO SUBSCRIBER, IF ANY, FROM ALL CAUSES OF ACTION AND UNDER ALL THEORIES OF LIABILITY, IS LIMITED TO THE AMOUNTS PAID TO SKYWAVE BY SUBSCRIBER DURING THE SIX MONTHS IMMEDIATELY PRECEDING THE FIRST EVENT GIVING RISE TO SUCH LIABILITY. THE PARTIES HAVE AGREED THAT THESE LIMITATIONS WILL SURVIVE AND APPLY EVEN IF ANY REMEDY SPECIFIED IN THIS AGREEMENT IS FOUND TO HAVE FAILED OF ITS ESSENTIAL PURPOSE.<br> <br>c.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; THE CONVENTION ON CONTRACTS FOR THE INTERNATIONAL SALE OF GOODS IS SPECIFICALLY DISCLAIMED AND SHALL NOT GOVERN OR APPLY TO THE SOFTWARE PROVIDED IN CONNECTION WITH THIS AGREEMENT.<br> <br>d.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SKYWAVE DOES NOT PROMISE THAT THE SOFTWARE WILL FUNCTION ON OR BE COMPATIBLE WITH SUBSCRIBER’S COMPUTERS, NETWORK INFRASTRUCTURE, OR OTHER DEVICES. SKYWAVE DOES NOT PROMISE OR WARRANT THAT SUBSCRIBER’S OR ANY USER’S DEVICES WILL BE COMPATIBLE WITH THE FUNCTIONALITY AVAILABLE THROUGH Skywave’S SERVER. IT IS SUBSCRIBER’S SOLE RESPONSIBILITY TO ENSURE THAT EACH USER'S DEVICE AND<br><br> <br>INTERNET ACCESS ARE COMPATIBLE WITH THE SOFTWARE AND THE SERVER FUNCTIONALITY.<br> <br>5.&nbsp;COPYRIGHT AND CONTENT OWNERSHIP<br> <br>Skywave claims no intellectual property rights over the data Subscriber uploads in conjunction with its use of the Software (collectively,“Content”). As between the parties, all Content uploaded by Subscriber and its Users remains the property of Subscriber. HoweverSubscriber acknowledges and agrees that, by setting its pages to be shared publicly, it allows others to view and share Subscriber’sContent.<br>a.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Skywave does not pre•screen Content, but Skywave has the right (but not the obligation) in its sole discretion to refuse or remove any Content that is available via the Software.<br> <br>6.&nbsp;ACCOUNT TERMS<br>a.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Each User must provide his or her full legal name, company, address, phone number and a valid email address, and any other information requested in order to complete the signup process.<br> <br>b.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Unless agreed upon in writing by Skywave, each User’s login may only be used by one person – a single login shared by multiple people is not permitted and in violation of this agreement. Subscriber must create separate logins for multiple Users, subject to any associated payment obligations. Skywave actively monitors the system for invalid logins and may automatically log out multiple users from the system.<br> <br>c.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Subscriber is responsible for maintaining the security of its Users’ accounts and passwords. Skywave cannot and will not be liable for any loss or damage from Users’ failure to maintain such security.<br> <br>d.&nbsp;Subscriber is responsible for all Content posted and activity that occurs under the accounts of its Users.<br> <br>e.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Subscriber shall not, and shall ensure that its Users do not, use the Service for any illegal or unauthorized purpose.Subscriber shall ensure that its and its Users’ use of the Service does not violate any applicable laws or regulations, or any proprietary right of a third party.<br> <br>7.&nbsp;PAYMENTS, REFUNDS, UPGRADING, DOWNGRADING<br> <br>a.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Skywave will charge Subscriber the fees set forth in Exhibit A, attached hereto. Depending on additional functionality or support Subscriber requires, additional fees may apply. A valid open business checking account or credit card is required to be on file with Skywave for all accounts. Subscriber hereby authorizes Skywave to immediately debit or charge Subscriber’s primary account on file for first monthly and setup fee, and thereafter monthly or at such other frequency set forth in Exhibit A. If for any reason any of our charges for these fees are rejected or refused by Subscriber’s bank or credit card, this Agreement and Subscriber’s License to Use the Software can be automatically be terminated by Skywave without notice. A $25.00 NSF fee will be applied for any rejected or returned payment. It is Subscriber’s sole responsibility to ensure that payment is made and to notify D=Skywave billing department (viabilling@skywave.app) of any different billing instructions if Subscriber cancels or wishes to change the primary billing method.<br> <br>b.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Skywave will discontinue billing Subscriber’s primary billing method or any usage accrued during the period prior to the date in which termination occurred. Skywave will not pro•rate or refund any fees paid for the month (or year) in which termination occurred.<br> <br>c.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The Service is billed in arrears on a monthly basis and is non•refundable. There will be no refunds, credits, or pro•rations for partial months of service, upgrade/downgrade refunds, or refunds for months unused with an open account. In order to treat everyone equally, no exceptions will be made unless the cause of interrupted service is a direct result of Skywave.<br> <br>d.) Setup fees and custom development charges are non•refundable. Charges for custom development and or integrations with third party services will be charged the the account holders Primary Billing Method at the time of sign•off on the scope of work,<br> <br>e.) Minimum Fees. Your account is considered active for one year beginning on the date of this agreement. Your account will incur a monthly charge regardless of whether services were used during that billing cycle. Refer to your pricing proposal for details.<br> <br>f.) Re•activation fees. If you cancel your account with Skywave and wish to re•activate it at a future date, a re•activation fee of $300.00 will<br>apply. g.) All fees are exclusive of all taxes, levies, or duties imposed by taxing authorities, and you shall be responsible for payment of allsuch taxes, levies, or duties, excluding only United States (federal or state) taxes.<br>h.) For any upgrade or downgrade in plan level, Subscriber’s business checking account will automatically be charged the new rate on the next billing cycle. Downgrading Subscriber’s plan level may result in the loss of Content, features, or capacity. Skywave does not accept any liability for such loss. However, Skywave will take every possible step to ensure that no customer data is lost if Subscriberdecides to change its plan level.<br><br> <br> <br>8.&nbsp;CANCELLATION AND TERMINATION<br> <br>a.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Subscriber is solely responsible for properly cancelling its account. An email or phone request to cancel the account is not considered cancellation. Subscriber can cancel its account at any time by completing a cancellation form and emailing it tobilling@skywave.app This cancellation form is available online at https://www.skywave.app/cancellation<br> <br>b.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If Subscriber decides to cancel its account with Skywave, a one•time backup can be provided upon request after any outstanding balances are paid in full and cancellation form has been received. Backup will be provided in an archived format containing CSV’s of your data and an archive of all client documents stored on our servers. Subscriber will have a maximum of 30 days after the cancellation date to retrieve any and all data stored on Skywave’s system. Skywave also agrees that it will never retainContent for its own purposes, unless required to do so by law.<br> <br>9.&nbsp;MODIFICATION TO THE SERVICE AND PRICES<br> <br>a.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Skywave reserves the right at any time and from time to time to modify or discontinue, temporarily or permanently, the Software (or any part thereof), or any access thereto, with notice to User.<br> <br>b.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Prices of all services provided by Skywave, including but not limited to monthly subscription plan fees to access the Software, are subject to change upon 30 days notice from Skywave. Such notice may be provided at any time by posting the changes to the Skywave Site (www.skywave.app) , within the Software itself, or by providing notice to the Subscriber via email.<br> <br>c.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Skywave shall not be liable to Subscriber or to any User or third party for any modification, price change,suspension or discontinuance of the Software or Subscriber’s access thereto.<br> <br>10.&nbsp;GENERAL PROVISIONS<br> <br>a.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This Agreement and any disputes arising hereunder shall be governed by the laws of the State of California, United States, without regard to conflicts of laws principles. User hereby expressly consents to the jurisdiction of courts situated in San Diego,California, United States over any disputes arising from or related in any manner to this Agreement.<br> <br>b.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If any term or provision herein is determined to be illegal or unenforceable, the validity or enforceability of the remainder of the terms or provisions herein will remain in full force and effect. Failure or delay in enforcing any right or provision of this Agreement shall not be deemed a waiver of such right or provision with respect to any subsequent breach. Provisions herein which by their nature extend beyond the termination of any license of Software will remain in effect until fulfilled.<br> <br>c.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; This Agreement is the final, complete and exclusive agreement between the parties relating to the subject matter hereof, and supersedes any previous communications, representations or agreements between the parties, whether oral or written, regarding transactions hereunder. Subscriber’s additional or different terms and conditions will not apply. This Agreement may not be changed except by an amendment signed by an authorized representative of each party.<br> <br>d.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Technical support is provided to paying account holders via our ticket support channel by email at support@skywave.appand will be responded to per your pricing proposal service level agreement. Paying accounts are entitled to 3 hours of remote webinar training via phone and internet upon sign up. Additional phone support and/or trainings may incur additional charges. Refer to your pricing proposal.<br> <br>e.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;You understand that Skywave uses third party vendors and hosting partners to provide the necessary hardware, software, networking, storage, and related technology required to run the Service.<br> <br>f.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;You may not modify, adapt or hack the Service or modify another web site so as to falsely imply that it is associated with the Service, Skywave, or any other Skywave service.<br> <br>g.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;You agree not to reproduce, duplicate, copy, sell, resell or exploit any portion of the Service, use of the Service or access to the Service without the express written permission by Skywave.<br> <br>h.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Skywave may remove or suspend access to Content that it determines in its sole discretion is unlawful, offensive,threatening, libelous, defamatory, pornographic, obscene or otherwise objectionable or violates any party’s intellectual property or the terms of this Agreement.<br> <br>i.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Verbal, physical, written or other abuse (including threats of abuse or retribution) of any Skywave customer,employee, member, or officer will result in immediate account termination.<br> <br>j.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You understand that the technical processing and transmission of the Software, including your Content, may be transferred unencrypted and involve (a) transmissions over various networks; and (b) changes to conform and adapt to technical requirements of connecting networks or devices.<br> <br>k.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The failure of Skywave to exercise or enforce any right or provision of this Agreement shall not constitute a waiver of such right or provision. If any term, condition or provision in this Agreement is found to be invalid, unlawful or unenforceable to any extent, then such term, condition or provision will be severed from the Agreement, and the remainder of the Agreement will continue to be valid and enforceable to the fullest extent permitted by law.<br><br> <br>11.) SUPPORT; SERVICE LEVELS<br> <br>(a)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Customer Support. Skywave shall, so long as Licensee is not in breach of this Agreement, provide to Licensee its standard and customary customer support by email at support@skywave.app to answer questions regarding use of the Software. Paying accounts are entitled to 3 hours of remote webinar training via phone and internet upon sign up. Additional phone support and/or trainings may incur additional charges. Refer to your pricing proposal. Skywave will use commercially reasonable efforts to answer<br>questions regarding the Software during normal business hours. Should Skywave need to access Licensee's data to provide support services, Skywave shall only access such account data once Licensee has given Skywave authorization to do so, provided however, Licensee authorizes Skywave's account managers to access the administrative settings in Licensee's account solely for the purpose of configuring Licensee's account settings and Licensee further grants Skywave access to data for the limited purpose of executing such directives as Licensee gives to Skywave to fulfill its servicing obligations under the base agreement. Skywave shall have no obligation to support: (i) errors caused by Licensee’s website, negligence, hardware malfunction or other causes beyond Skywave’s reasonable control; or (ii) third party software or ASP services not licensed through Skywave.<br> <br>(b)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Service Level Agreement. In the event the Software is available for less than 98% of any calendar month during the term of this Agreement, as measured beginning on the first day of the calendar month at 12:01 a.m. and ending on the last calendar day of the month at 11:59pm. So long as Licensee notifies Skywave of such downtime within 10 days from the end of the applicable calendar month, and, upon Licensee’s request, Skywave will provide a service credit to Licensee against future fees due and owing hereunder. If availability for Licensee’s account is below 98% but more than 96% in any calendar month, then, upon request, Skywave will credit Licensee against future fees an amount equal to 25% of the amount that would otherwise be due from Licensee for the affected service account for such calendar month. If availability is at or below 96% in any calendar month, then Skywave will, upon request, credit Licensee against future fees an amount equal to the entire amount that would otherwise be due from Licensee for the affected calendar month. Aside from anydata breach obligations contained herein, the credits earned under this section will be the limit of Skywave’s liability for amounts owed for the nonavailability of the Software or any other failures of the Software. Skywave shall have sole authority to make any final determination regarding downtime in a given calendar month by measuring such downtime using tools it reasonably deems appropriate. Downtime shall not, for purposes of this Section (b), include previously or regularly scheduled maintenance or the events described in the Force Majeure section of this Agreement. (c) Certain Limitations.<br>Except as explicitly set forth above, Skywave does not offer any guarantee regarding the Software, and Skywave shall not be liable<br>for any delays in responding to Licensee’s inquiries. Licensee hereby acknowledges that Skywave may release or license new versions or upgrades of the Software. Licensee’s license applies to any such upgrades and/or new versions to the extent such upgrades and/or new versions are generally made available by Skywave and do not constitute additional features and/or functionality for which an additional fee is charged. Nothing herein shall obligate Skywave to upgrade and/or improve the Software at any time.<br> <br> <br>IN WITNESS WHEREOF, the parties have caused their duly authorized representatives to execute this Agreement to be effective as of <strong>{{ current_date }}</strong><br></p>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-check text-center p-3 bg-warning text-white cursor-pointer" v-on:click="agree_to_terms"><input class="form-check-input" type="checkbox" id="terms_of_service" v-model="form.terms_of_service"><label class="form-check-label" for="terms_of_service"><strong>Agree To Terms of Service</strong></label></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 finished" v-if="active_node == 'finished'">
+                    <div class="form-row">
+                        <div class="col-12 text-center">
+                            <h5 class="p-2 finished-node-title text-white"><strong>Your Onboarding Is Complete!</strong></h5>
+                        </div>
+                    </div>
+                    <div class="form-row mt-1">
+                        <div class="col-12" v-if="form.dedicated_account_rep == 'I would like an Account Manager to help me set up and maintain my account'">
+                            <p>You will be receiving a call from your assigned account manager to get you started using Skywave CRM. If you have any immediate needs,&nbsp; you can reach us using the contact details below.</p>
+                        </div>
+                        <div class="col-12" v-if="form.dedicated_account_rep == 'I am not interested in having an Account Manager'">
+                            <p>You’ve opted to not have an account manager, so we will continue to communicate through email. As soon as your account is provisioned you will receive an email with sign in instructions. If you have any immediate needs,&nbsp;you can reach us using the contact details below.</p>
+                        </div>
+                        <div class="col pl-2 pr-2"><a class="btn btn-outline-danger btn-block" role="button" href="tel:18663350110"><i class="fa fa-phone"></i>&nbsp;Call</a></div>
+                        <div class="col pl-2 pr-2"><a class="btn btn-outline-info btn-block" role="button" href="mailto:info@skywave.app"><i class="fa fa-envelope"></i>&nbsp;Email</a></div>
+                        <div class="col pl-2 pr-2"><a class="btn btn-outline-success btn-block" role="button" onclick="_chatlio.showOrHide();"><i class="fa fa-comments-o"></i>&nbsp;Chat</a></div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-row wizard-footer-desktop mt-4" v-if="navigation_row_is_hidden == false">
+                        <div class="col-12 text-center progress-bar-row mb-3" v-if="progress_bar_is_hidden == false">
+                            <div class="progress wizard-progress bg-white">
+                                <div class="progress-bar progress-bar-striped progress-bar-animated" aria-valuenow="{{ progress_amount }}" aria-valuemin="0" aria-valuemax="100" v-bind:style="{width: progress_amount + '%'}">{{ progress_amount }}%</div>
+                            </div>
+                        </div>
+                        <div class="col-6 text-left"><button class="btn btn-danger w-50" type="button" v-on:click="traverse_nodes(this.active_node, &quot;-&quot;)" v-if="back_button_is_hidden == false">Back</button></div>
+                        <div class="col-6 text-right"><button class="btn btn-success w-50" type="button" v-on:click="traverse_nodes(this.active_node, &quot;+&quot;)" v-if="next_button_is_hidden == false"><span v-if="active_node != 'wrap'">Next</span><span v-if="active_node == 'wrap'">Finish</span></button></div>
+                    </div>
+                </div><script type="text/javascript">
+    window._chatlio = window._chatlio||[];
+    !function(){ var t=document.getElementById("chatlio-widget-embed");if(t&&window.ChatlioReact&&_chatlio.init)return void _chatlio.init(t,ChatlioReact);for(var e=function(t){return function(){_chatlio.push([t].concat(arguments)) }},i=["configure","identify","track","show","hide","isShown","isOnline", "page", "open", "showOrHide"],a=0;a<i.length;a++)_chatlio[i[a]]||(_chatlio[i[a]]=e(i[a]));var n=document.createElement("script"),c=document.getElementsByTagName("script")[0];n.id="chatlio-widget-embed",n.src="https://w.chatlio.com/w.chatlio-widget.js",n.async=!0,n.setAttribute("data-embed-version","2.3");
+       n.setAttribute('data-widget-options', '{"embedSidebar": true}');
+       n.setAttribute('data-widget-id','6e5306a2-719d-436b-5929-2eebb559364f');
+       c.parentNode.insertBefore(n,c);
+    }();
+</script>
+
+
+            </div>
+        </form>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/bs-init.js"></script>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="assets/js/main_vue.js"></script>
+</body>
+
+</html>
